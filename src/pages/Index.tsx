@@ -12,9 +12,14 @@ const Index = () => {
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900">
       <Navbar />
       
-      {/* Hero Section */}
+      {/* Hero Section with Logo */}
       <section className="pt-32 pb-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
+          <img 
+            src="/lovable-uploads/32b96cbf-5ffd-4d1a-a2f2-56bd16f2b8eb.png" 
+            alt="Cyborgi Logo" 
+            className="w-96 h-auto mb-8 animate-pulse-slow"
+          />
           <SplineSceneBasic />
         </div>
       </section>
