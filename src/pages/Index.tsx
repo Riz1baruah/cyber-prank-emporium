@@ -1,4 +1,3 @@
-
 import { SplineSceneBasic } from "@/components/ui/demo";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import Navbar from "@/components/Navbar";
@@ -6,14 +5,20 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Cpu, Eye, Zap, Brain } from "lucide-react";
 import { Link } from "react-router-dom";
+import { DemoBackgroundPaths } from "@/components/ui/background-paths";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900">
+      {/* Background paths component */}
+      <div className="fixed inset-0 z-0 opacity-20">
+        <DemoBackgroundPaths />
+      </div>
+      
       <Navbar />
       
       {/* Hero Section with Logo */}
-      <section className="pt-32 pb-16">
+      <section className="pt-32 pb-16 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center">
           <img 
             src="/lovable-uploads/32b96cbf-5ffd-4d1a-a2f2-56bd16f2b8eb.png" 
@@ -25,7 +30,7 @@ const Index = () => {
       </section>
 
       {/* Category Preview */}
-      <section className="py-24 bg-gray-950">
+      <section className="py-24 bg-gray-950 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Enhancement Categories</h2>
           
@@ -73,7 +78,7 @@ const Index = () => {
       <FeaturedProducts />
 
       {/* Call To Action */}
-      <section className="py-24 bg-black relative overflow-hidden">
+      <section className="py-24 bg-black relative overflow-hidden z-10">
         <div className="absolute inset-0 bg-gradient-radial from-cyan-500/10 to-transparent opacity-30"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
