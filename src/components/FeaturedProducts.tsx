@@ -12,7 +12,7 @@ const products = [
     category: "eyes",
     price: 12999.99,
     description: "See beyond human limitations with 200x zoom, night vision, and augmented reality overlays.",
-    image: "/placeholder.svg",
+    image: "/lovable-uploads/856a7cd7-73ff-4b4c-8fcb-d2aa30d9b869.png",
     rating: 4.9
   },
   {
@@ -21,7 +21,7 @@ const products = [
     category: "legs",
     price: 24999.99,
     description: "Run at speeds up to 100mph with our revolutionary leg replacements.",
-    image: "/placeholder.svg",
+    image: "/lovable-uploads/79db9054-9985-4d71-90e6-8160506fa626.png", 
     rating: 4.7
   },
   {
