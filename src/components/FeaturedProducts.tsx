@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { GradientButton } from "@/components/ui/gradient-button";
@@ -30,7 +29,7 @@ const products = [
     category: "brain",
     price: 39999.99,
     description: "Download skills directly to your brain. Learn piano in 5 minutes!",
-    image: "/placeholder.svg", 
+    image: "/lovable-uploads/55420c3c-d5d1-49a1-a6ce-ccdceb24d57d.png", 
     rating: 5.0
   }
 ];
