@@ -1,7 +1,7 @@
+
 "use client";
 
 import { motion } from "framer-motion";
-import { GradientButton } from "@/components/ui/gradient-button";
 
 function FloatingPaths({ position }: { position: number }) {
     const paths = Array.from({ length: 36 }, (_, i) => ({
@@ -55,42 +55,11 @@ export function BackgroundPaths({
 }: {
     title?: string;
 }) {
-    const words = title.split(" ");
-
     return (
         <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black dark:bg-black">
             <div className="absolute inset-0">
                 <FloatingPaths position={1} />
                 <FloatingPaths position={-1} />
-            </div>
-
-            <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 2 }}
-                    className="max-w-4xl mx-auto"
-                >
-                    <div
-                        className="inline-block group relative bg-gradient-to-b from-black/10 to-white/10 
-                        dark:from-white/10 dark:to-black/10 p-px rounded-2xl backdrop-blur-lg 
-                        overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
-                    >
-                        <GradientButton
-                            className="group-hover:-translate-y-0.5"
-                        >
-                            <span className="opacity-90 group-hover:opacity-100 transition-opacity">
-                                
-                            </span>
-                            <span
-                                className="ml-3 opacity-70 group-hover:opacity-100 group-hover:translate-x-1.5 
-                                transition-all duration-300"
-                            >
-                                →
-                            </span>
-                        </GradientButton>
-                    </div>
-                </motion.div>
             </div>
         </div>
     );

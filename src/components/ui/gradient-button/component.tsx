@@ -16,13 +16,18 @@ const gradientButtonVariants = cva(
     "focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring",
     "disabled:pointer-events-none disabled:opacity-50",
     "transition-all duration-300 hover:-translate-y-0.5",
-    "bg-gradient-to-r from-cyan-500 to-blue-600 text-black hover:shadow-lg",
+    "relative overflow-hidden",
+    "bg-gradient-to-b from-gray-300 via-gray-400 to-gray-500",
+    "text-black shadow-md hover:shadow-lg",
+    "before:absolute before:inset-0 before:bg-gradient-to-r before:from-transparent before:via-white/30 before:to-transparent before:opacity-50",
+    "after:absolute after:inset-0 after:bg-gradient-to-b after:from-white/5 after:to-transparent after:opacity-30",
+    "border border-cyan-400/30",
   ],
   {
     variants: {
       variant: {
-        default: "",
-        variant: "bg-gradient-to-r from-blue-600 to-cyan-500 text-white",
+        default: "bg-gradient-to-b from-gray-300 via-gray-400 to-gray-500 text-black hover:shadow-cyan-500/20",
+        variant: "bg-gradient-to-b from-gray-800 via-gray-700 to-gray-600 text-white hover:shadow-cyan-500/20 before:opacity-20 after:opacity-10",
       },
     },
     defaultVariants: {
