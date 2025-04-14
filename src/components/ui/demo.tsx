@@ -5,6 +5,7 @@ import { SplineScene } from "@/components/ui/spline";
 import { Card } from "@/components/ui/card";
 import { Spotlight } from "@/components/ui/spotlight";
 import { Button } from "@/components/ui/button";
+import { GradientButton } from "@/components/ui/gradient-button";
  
 export function SplineSceneBasic() {
   return (
@@ -26,12 +27,12 @@ export function SplineSceneBasic() {
             Transform yourself today with Cyborgi™.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <Button className="bg-cyan-500 hover:bg-cyan-600 text-black">
+            <GradientButton>
               Shop Now
-            </Button>
-            <Button variant="outline" className="border-cyan-500/50 text-cyan-500 hover:bg-cyan-950/30">
+            </GradientButton>
+            <GradientButton variant="variant">
               Learn More
-            </Button>
+            </GradientButton>
           </div>
         </div>
 

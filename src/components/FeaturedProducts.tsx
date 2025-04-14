@@ -1,7 +1,7 @@
 
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { GradientButton } from "@/components/ui/gradient-button";
 import { Star } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -87,12 +87,12 @@ export default function FeaturedProducts() {
               </CardContent>
               
               <CardFooter className="border-t border-gray-700 pt-4">
-                <Button 
-                  className="w-full bg-cyan-500 hover:bg-cyan-600 text-black"
+                <GradientButton 
+                  className="w-full"
                   onClick={() => addToCart(product.id)}
                 >
                   Add to Cart
-                </Button>
+                </GradientButton>
               </CardFooter>
             </Card>
           ))}

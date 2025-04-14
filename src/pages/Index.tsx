@@ -1,8 +1,10 @@
+
 import { SplineSceneBasic } from "@/components/ui/demo";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import { GradientButton } from "@/components/ui/gradient-button";
 import { ArrowRight, Cpu, Eye, Zap, Brain } from "lucide-react";
 import { Link } from "react-router-dom";
 import { DemoBackgroundPaths } from "@/components/ui/background-paths";
@@ -88,9 +90,9 @@ const Index = () => {
             <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-10">
               Join thousands of satisfied customers who have upgraded their human experience with our cutting-edge cybernetic enhancements.
             </p>
-            <Button className="bg-cyan-500 hover:bg-cyan-600 text-black text-lg px-8 py-6">
+            <GradientButton>
               Shop Now
-            </Button>
+            </GradientButton>
           </div>
         </div>
       </section>
