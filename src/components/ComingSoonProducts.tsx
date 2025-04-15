@@ -1,3 +1,4 @@
+
 import {
   Carousel,
   CarouselContent,
@@ -7,7 +8,6 @@ import {
 } from "@/components/ui/carousel";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { HyperText } from "@/components/ui/hyper-text";
 
 const upcomingProducts = [
   {
@@ -45,17 +45,10 @@ export default function ComingSoonProducts() {
     <section className="py-16 bg-black/50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <HyperText
-            text="Coming Soon"
-            className="text-3xl md:text-4xl font-bold text-white inline-block"
-            duration={1000}
-            framerProps={{
-              initial: { opacity: 0, y: -20 },
-              animate: { opacity: 1, y: 0 },
-              exit: { opacity: 0, y: 20 },
-            }}
-          />
-          <p className="text-gray-400 text-lg mt-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+            Coming Soon
+          </h2>
+          <p className="text-gray-400 text-lg">
             Experience the next evolution of human enhancement
           </p>
         </div>

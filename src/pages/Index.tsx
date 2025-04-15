@@ -8,7 +8,6 @@ import { GradientButton } from "@/components/ui/gradient-button";
 import { ArrowRight, Cpu, Eye, Zap, Brain } from "lucide-react";
 import { Link } from "react-router-dom";
 import { DemoBackgroundPaths } from "@/components/ui/background-paths";
-import { HyperText } from "@/components/ui/hyper-text";
 
 const Index = () => {
   return (
@@ -38,11 +37,7 @@ const Index = () => {
       {/* Category Preview */}
       <section className="py-24 bg-gray-950 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <HyperText
-            text="Enhancement Categories"
-            className="text-3xl md:text-4xl font-bold text-center text-white mb-12"
-            duration={1200}
-          />
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Enhancement Categories</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="group relative overflow-hidden rounded-lg bg-gradient-to-br from-gray-900 to-gray-800 p-8 border border-gray-800 hover:border-cyan-500/50 transition-colors duration-300">
@@ -92,12 +87,9 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-radial from-cyan-500/10 to-transparent opacity-30"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">
-            <HyperText
-              text="Ready to transcend human limitations?"
-              className="text-3xl md:text-5xl font-bold mb-6 text-white leading-tight"
-              duration={1500}
-            />
-            
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white leading-tight">
+              Ready to transcend human limitations?
+            </h2>
             <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-10">
               Join thousands of satisfied customers who have upgraded their human experience with our cutting-edge cybernetic enhancements.
             </p>
