@@ -72,7 +72,7 @@ export const chipsProducts: Product[] = [
     name: "Instant Genius Chip",
     tagline: "Know It All. Instantly.",
     price: "$9,999.99",
-    imageUrl: "/lovable-uploads/55420c3c-d5d1-49a1-a6ce-ccdceb24d57d.png",
+    imageUrl: "/lovable-uploads/7954ee3b-2023-4311-9d77-4a87d47cd079.png",
     category: "Chips"
   },
   {
@@ -80,7 +80,7 @@ export const chipsProducts: Product[] = [
     name: "LingoLink Implant",
     tagline: "Speak Fluent Everything.",
     price: "$4,999.99",
-    imageUrl: "/placeholder.svg",
+    imageUrl: "/lovable-uploads/b1060060-3337-47ee-9567-0ef115dc2d59.png",
     category: "Chips"
   },
   {
@@ -88,7 +88,7 @@ export const chipsProducts: Product[] = [
     name: "Serenity Now Filter",
     tagline: "Emotional Dial Tone.",
     price: "$7,999.99",
-    imageUrl: "/placeholder.svg",
+    imageUrl: "/lovable-uploads/76f97c8e-9419-4580-a88a-ff253b8370c8.png",
     category: "Chips"
   },
   {
@@ -96,7 +96,7 @@ export const chipsProducts: Product[] = [
     name: "MemoryMax Enhancer",
     tagline: "Never Forget. Ever.",
     price: "$6,499.99",
-    imageUrl: "/placeholder.svg",
+    imageUrl: "/lovable-uploads/97bd471e-5fdb-4919-bef5-c3013729e3ed.png",
     category: "Chips"
   }
 ];
