@@ -1,4 +1,3 @@
-
 import { Product } from '../components/ProductCard';
 
 // Robotic Eyes Products
@@ -16,7 +15,7 @@ export const eyesProducts: Product[] = [
     name: "Night Owl Vision",
     tagline: "Own the Dark.",
     price: "$849.99",
-    imageUrl: "/placeholder.svg",
+    imageUrl: "/lovable-uploads/d0447de1-3f6c-45b6-ae18-0d66fd78c139.png",
     category: "Eyes"
   },
   {
@@ -24,7 +23,7 @@ export const eyesProducts: Product[] = [
     name: "X-Ray Spectacles",
     tagline: "See Through the Nonsense.",
     price: "$1,499.99",
-    imageUrl: "/placeholder.svg",
+    imageUrl: "/lovable-uploads/892738fe-c813-45fd-b38f-8d26dcb55d9e.png",
     category: "Eyes"
   },
   {
@@ -32,7 +31,7 @@ export const eyesProducts: Product[] = [
     name: "Reality+ AR Lenses",
     tagline: "Your World, Enhanced.",
     price: "$1,299.99",
-    imageUrl: "/placeholder.svg",
+    imageUrl: "/lovable-uploads/1141b9c4-4ff0-4349-b713-8035e2961a35.png",
     category: "Eyes"
   }
 ];
