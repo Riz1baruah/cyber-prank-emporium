@@ -52,7 +52,7 @@ export const legsProducts: Product[] = [
     name: "Quantum Leap Kickers",
     tagline: "Short Jumps, Big Gains.",
     price: "$3,999.99",
-    imageUrl: "/placeholder.svg",
+    imageUrl: "/lovable-uploads/eba72009-e8cc-45f5-9968-3393c5386267.png",
     category: "Legs"
   },
   {
@@ -60,7 +60,7 @@ export const legsProducts: Product[] = [
     name: "Zero-G Strider",
     tagline: "Walk on Air. Literally.",
     price: "$5,999.99",
-    imageUrl: "/placeholder.svg",
+    imageUrl: "/lovable-uploads/56faa516-5819-4015-9fae-597d1894a9a8.png",
     category: "Legs"
   }
 ];
