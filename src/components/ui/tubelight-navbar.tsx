@@ -44,21 +44,14 @@ export function NavBar({ items, className }: NavBarProps) {
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-cyan-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <div className="flex items-center">
-            <Link to="/" className="text-2xl font-bold text-white flex items-center gap-2">
-              <Bot className="h-8 w-8 text-cyan-500" />
-            </Link>
-          </div>
-
           {/* Navigation Links */}
           <div className={cn(
             "flex items-center gap-3 bg-background/5 border border-border/5 backdrop-blur-lg py-1 px-1 rounded-full shadow-lg",
             className,
           )}>
             {items.map((item) => {
-              const Icon = item.icon
-              const isActive = activeTab === item.name
+              const Icon = item.icon;
+              const isActive = activeTab === item.name;
 
               return (
                 <Link
@@ -94,7 +87,7 @@ export function NavBar({ items, className }: NavBarProps) {
                     </motion.div>
                   )}
                 </Link>
-              )
+              );
             })}
           </div>
 
@@ -117,5 +110,5 @@ export function NavBar({ items, className }: NavBarProps) {
         </div>
       </div>
     </header>
-  )
+  );
 }

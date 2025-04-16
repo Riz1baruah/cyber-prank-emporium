@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -10,6 +9,7 @@ import NotFound from "./pages/NotFound";
 import RoboticEyesPage from "./pages/RoboticEyesPage";
 import SpeedsterLegsPage from "./pages/SpeedsterLegsPage";
 import BrainChipsPage from "./pages/BrainChipsPage";
+import ProductDetailPage from "./pages/ProductDetailPage";
 
 function App() {
   // Create a client inside the component to ensure proper React context
@@ -26,7 +26,7 @@ function App() {
             <Route path="/categories/eyes" element={<RoboticEyesPage />} />
             <Route path="/categories/legs" element={<SpeedsterLegsPage />} />
             <Route path="/categories/brain" element={<BrainChipsPage />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="/product/:productId" element={<ProductDetailPage />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </TooltipProvider>
