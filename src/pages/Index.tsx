@@ -1,6 +1,8 @@
+
 import { SplineSceneBasic } from "@/components/ui/demo";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import ComingSoonProducts from "@/components/ComingSoonProducts";
+import ServiceShowcase from "@/components/ServiceShowcase";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
@@ -33,6 +35,9 @@ const Index = () => {
 
       {/* Coming Soon Products */}
       <ComingSoonProducts />
+
+      {/* Service Showcase */}
+      <ServiceShowcase />
 
       {/* Category Preview */}
       <section className="py-24 bg-gray-950 relative z-10">
