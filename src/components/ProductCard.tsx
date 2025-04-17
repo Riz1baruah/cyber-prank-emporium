@@ -9,8 +9,8 @@ export type Product = {
   id: string;
   name: string;
   tagline: string;
-  price: string; // Use string for currency formatting
-  imageUrl: string; // Placeholder URL
+  price: string;
+  imageUrl: string;
   category: 'Eyes' | 'Legs' | 'Chips';
 };
 
