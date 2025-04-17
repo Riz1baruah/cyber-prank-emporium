@@ -5,7 +5,7 @@ import ProductCard from '@/components/ProductCard';
 import { chipsProducts } from '@/data/productData';
 
 const BrainChipsPage: React.FC = () => {
-  // Get LingoLink product (index 1 in chipsProducts array)
+  // Get Cybro Chip Pro product (index 1 in chipsProducts array)
   const featuredProduct = chipsProducts[1];
   
   return (
@@ -20,7 +20,7 @@ const BrainChipsPage: React.FC = () => {
             <h2 className="text-3xl font-bold text-white mb-4">{featuredProduct.name}</h2>
             <p className="text-xl text-cyan-400 mb-6">{featuredProduct.tagline}</p>
             <p className="text-gray-400 mb-8 text-lg">
-              Revolutionary neural language processor that instantly grants fluency in over 100 languages. Experience seamless communication across cultures with 99.9% linguistic accuracy.
+              Revolutionary neural processor that grants the ability to download and master up to 90 different skills. Become a true polymath in hours, not years. Seamlessly integrate new abilities with unprecedented efficiency.
             </p>
             <p className="text-2xl font-bold text-white mb-6">{featuredProduct.price}</p>
           </div>

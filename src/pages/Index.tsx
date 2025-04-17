@@ -12,6 +12,13 @@ import { Link } from "react-router-dom";
 import { DemoBackgroundPaths } from "@/components/ui/background-paths";
 
 const Index = () => {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900">
       {/* Background paths component */}
@@ -29,7 +36,17 @@ const Index = () => {
             alt="Cyborgi Logo" 
             className="w-96 h-auto mb-8 animate-pulse-slow"
           />
-          <SplineSceneBasic />
+          <div className="w-full">
+            <SplineSceneBasic />
+          </div>
+          <div className="mt-6 flex flex-wrap gap-3 justify-center">
+            <GradientButton onClick={() => scrollToSection('enhancement-categories')}>
+              Shop Now
+            </GradientButton>
+            <GradientButton variant="variant" onClick={() => scrollToSection('transform-your-life')}>
+              Learn More
+            </GradientButton>
+          </div>
         </div>
       </section>
 
@@ -40,7 +57,7 @@ const Index = () => {
       <ServiceShowcase />
 
       {/* Category Preview */}
-      <section className="py-24 bg-gray-950 relative z-10">
+      <section id="enhancement-categories" className="py-24 bg-gray-950 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Enhancement Categories</h2>
           
@@ -98,7 +115,7 @@ const Index = () => {
             <p className="text-xl text-gray-400 max-w-2xl mx-auto mb-10">
               Join thousands of satisfied customers who have upgraded their human experience with our cutting-edge cybernetic enhancements.
             </p>
-            <GradientButton>
+            <GradientButton onClick={() => scrollToSection('enhancement-categories')}>
               Shop Now
             </GradientButton>
           </div>
