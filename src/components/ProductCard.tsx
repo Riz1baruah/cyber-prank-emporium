@@ -1,6 +1,7 @@
+
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/CartContext';
 
@@ -49,10 +50,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <div className="flex items-center space-x-3">
             <Button
               size="sm"
+              variant="outline"
+              className="text-cyan-400 border-cyan-400/30 hover:bg-cyan-400/10"
               onClick={handleAddToCart}
-              className="text-white bg-cyan-500 hover:bg-cyan-600 transition-colors"
             >
-              Add to Cart
+              <ShoppingCart className="h-4 w-4" />
             </Button>
             <Link 
               to={`/product/${product.id}`}
