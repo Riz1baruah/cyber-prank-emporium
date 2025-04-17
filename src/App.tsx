@@ -11,6 +11,7 @@ import RoboticEyesPage from "./pages/RoboticEyesPage";
 import SpeedsterLegsPage from "./pages/SpeedsterLegsPage";
 import BrainChipsPage from "./pages/BrainChipsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
+import { CartProvider } from "./context/CartContext";
 
 function App() {
   // Create a client inside the component to ensure proper React context
@@ -19,18 +20,20 @@ function App() {
   return (
     <BrowserRouter>
       <QueryClientProvider client={queryClient}>
-        <TooltipProvider>
-          <Toaster />
-          <Sonner />
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/categories/eyes" element={<RoboticEyesPage />} />
-            <Route path="/categories/legs" element={<SpeedsterLegsPage />} />
-            <Route path="/categories/brain" element={<BrainChipsPage />} />
-            <Route path="/product/:productId" element={<ProductDetailPage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </TooltipProvider>
+        <CartProvider>
+          <TooltipProvider>
+            <Toaster />
+            <Sonner />
+            <Routes>
+              <Route path="/" element={<Index />} />
+              <Route path="/categories/eyes" element={<RoboticEyesPage />} />
+              <Route path="/categories/legs" element={<SpeedsterLegsPage />} />
+              <Route path="/categories/brain" element={<BrainChipsPage />} />
+              <Route path="/product/:productId" element={<ProductDetailPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </TooltipProvider>
+        </CartProvider>
       </QueryClientProvider>
     </BrowserRouter>
   );

@@ -51,7 +51,7 @@ export default function ServiceShowcase() {
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((current) => (current + 1) % services.length);
-    }, 3000); // Change slide every 3 seconds
+    }, 4000); // Changed to 4 seconds for smoother transitions
 
     return () => clearInterval(interval);
   }, []);
@@ -71,6 +71,7 @@ export default function ServiceShowcase() {
             align: "start",
             loop: true,
             startIndex: activeIndex,
+            duration: 60, // Increased duration for smoother animation
           }}
           className="w-full"
         >
@@ -82,13 +83,13 @@ export default function ServiceShowcase() {
               >
                 <div className={cn(
                   "relative group h-[400px] rounded-xl overflow-hidden",
-                  "transform transition-all duration-500",
+                  "transform transition-all duration-1000", // Increased duration
                   index === activeIndex ? "scale-100" : "scale-95 opacity-75"
                 )}>
                   <img
                     src={service.image}
                     alt={service.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110" // Increased duration
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/50 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-6 text-white">

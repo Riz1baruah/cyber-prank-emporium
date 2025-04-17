@@ -1,16 +1,16 @@
-
 import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import CategoryLayout from '@/components/CategoryLayout';
 import { chipsProducts, eyesProducts, legsProducts, featuredProducts } from '@/data/productData';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ShoppingCart, Check } from 'lucide-react';
-import { toast } from 'sonner';
+import { useCart } from '@/context/CartContext';
 
 const ProductDetailPage: React.FC = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
   const [added, setAdded] = useState(false);
+  const { addToCart } = useCart();
   
   // Combine all products
   const allProducts = [...chipsProducts, ...eyesProducts, ...legsProducts];
@@ -90,10 +90,8 @@ const ProductDetailPage: React.FC = () => {
 
   // Handle featured products that have their own format
   if (featuredProduct) {
-    const addToCart = () => {
-      toast.success(`Added ${featuredProduct.name} to your cart!`, {
-        description: `Your cart will be ready for checkout soon.`
-      });
+    const handleAddToCart = () => {
+      addToCart(featuredProduct);
       setAdded(true);
       setTimeout(() => setAdded(false), 2000);
     };
@@ -124,7 +122,7 @@ const ProductDetailPage: React.FC = () => {
             <p className="text-xl text-cyan-400 mb-6">{featuredProduct.description}</p>
             <p className="text-gray-400 mb-8">{featuredProduct.detailedDescription}</p>
             <p className="text-3xl font-bold text-white mb-8">{featuredProduct.price}</p>
-            <Button className="w-full sm:w-auto" onClick={addToCart} disabled={added}>
+            <Button className="w-full sm:w-auto" onClick={handleAddToCart} disabled={added}>
               {added ? (
                 <>
                   <Check className="mr-2 h-4 w-4" /> Added to Cart
@@ -154,12 +152,12 @@ const ProductDetailPage: React.FC = () => {
   }
 
   // For regular products
-  const addToCart = () => {
-    toast.success(`Added ${product.name} to your cart!`, {
-      description: `Your cart will be ready for checkout soon.`
-    });
-    setAdded(true);
-    setTimeout(() => setAdded(false), 2000);
+  const handleAddToCart = () => {
+    if (product) {
+      addToCart(product);
+      setAdded(true);
+      setTimeout(() => setAdded(false), 2000);
+    }
   };
 
   return (
@@ -188,7 +186,7 @@ const ProductDetailPage: React.FC = () => {
           <p className="text-xl text-cyan-400 mb-6">{product.tagline}</p>
           <p className="text-gray-400 mb-8">{detailedDescriptions[product.id] || "Revolutionary enhancement technology that pushes the boundaries of human capability."}</p>
           <p className="text-3xl font-bold text-white mb-8">{product.price}</p>
-          <Button className="w-full sm:w-auto" onClick={addToCart} disabled={added}>
+          <Button className="w-full sm:w-auto" onClick={handleAddToCart} disabled={added}>
             {added ? (
               <>
                 <Check className="mr-2 h-4 w-4" /> Added to Cart

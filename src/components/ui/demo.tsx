@@ -4,7 +4,6 @@
 import { SplineScene } from "@/components/ui/spline";
 import { Card } from "@/components/ui/card";
 import { Spotlight } from "@/components/ui/spotlight";
-import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
  
 export function SplineSceneBasic() {
@@ -20,7 +19,12 @@ export function SplineSceneBasic() {
       <Spotlight
         className="-top-40 left-0 md:left-60 md:-top-20"
         fill="cyan"
-        size={300}
+        size={500} // Increased size for more prominence
+      />
+      <Spotlight
+        className="top-40 right-10"
+        fill="cyan"
+        size={300} // Added second spotlight for more glow effect
       />
       
       <div className="flex flex-col md:flex-row h-full">

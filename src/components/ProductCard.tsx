@@ -1,9 +1,9 @@
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { toast } from 'sonner';
+import { useCart } from '@/context/CartContext';
 
 export type Product = {
   id: string;
@@ -19,11 +19,10 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
-  const addToCart = () => {
-    toast.success(`Added ${product.name} to your cart!`, {
-      description: `Your cart will be ready for checkout soon.`
-    });
-    console.log(`Added ${product.name} to cart`);
+  const { addToCart } = useCart();
+
+  const handleAddToCart = () => {
+    addToCart(product);
   };
 
   return (
@@ -53,7 +52,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               size="sm"
               variant="outline"
               className="text-cyan-400 border-cyan-400/30 hover:bg-cyan-400/10"
-              onClick={addToCart}
+              onClick={handleAddToCart}
             >
               <ShoppingCart className="h-4 w-4" />
             </Button>
@@ -67,7 +66,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
       </div>
 
-      {/* Decorative elements - Apple-inspired subtle design details */}
+      {/* Decorative elements */}
       <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
     </div>
   );

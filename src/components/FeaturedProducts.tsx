@@ -1,20 +1,22 @@
 
-import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { GradientButton } from "@/components/ui/gradient-button";
 import { Star, ShoppingCart, Check } from "lucide-react";
 import { Link } from "react-router-dom";
-import { toast } from "sonner";
+import { useState } from "react";
 import { featuredProducts } from "@/data/productData";
+import { useCart } from "@/context/CartContext";
 
 export default function FeaturedProducts() {
-  const [cart, setCart] = useState<string[]>([]);
+  const [addedProducts, setAddedProducts] = useState<Record<string, boolean>>({});
+  const { addToCart } = useCart();
   
-  const addToCart = (productId: string, productName: string) => {
-    setCart([...cart, productId]);
-    toast.success(`Added ${productName} to your cart!`, {
-      description: `Your cart will be ready for checkout soon.`
-    });
+  const handleAddToCart = (product: any) => {
+    addToCart(product);
+    setAddedProducts(prev => ({ ...prev, [product.id]: true }));
+    setTimeout(() => {
+      setAddedProducts(prev => ({ ...prev, [product.id]: false }));
+    }, 2000);
   };
 
   return (
@@ -64,10 +66,13 @@ export default function FeaturedProducts() {
               <CardFooter className="border-t border-gray-700 pt-4">
                 <GradientButton 
                   className="w-full"
-                  onClick={() => addToCart(product.id, product.name)}
+                  onClick={() => handleAddToCart(product)}
                 >
-                  <ShoppingCart className="mr-2 h-4 w-4" />
-                  Add to Cart
+                  {addedProducts[product.id] ? (
+                    <><Check className="mr-2 h-4 w-4" />Added to Cart</>
+                  ) : (
+                    <><ShoppingCart className="mr-2 h-4 w-4" />Add to Cart</>
+                  )}
                 </GradientButton>
               </CardFooter>
             </Card>
