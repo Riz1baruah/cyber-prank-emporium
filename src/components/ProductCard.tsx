@@ -1,7 +1,9 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, ShoppingCart } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 export type Product = {
   id: string;
@@ -17,6 +19,13 @@ interface ProductCardProps {
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
+  const addToCart = () => {
+    toast.success(`Added ${product.name} to your cart!`, {
+      description: `Your cart will be ready for checkout soon.`
+    });
+    console.log(`Added ${product.name} to cart`);
+  };
+
   return (
     <div className="group relative rounded-2xl bg-gray-800/50 border border-gray-700/50 overflow-hidden transition-all duration-300 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(10,255,255,0.15)] hover:scale-[1.02]">
       {/* Image Container */}
@@ -39,12 +48,22 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         
         <div className="flex items-center justify-between">
           <p className="text-xl font-bold text-white">{product.price}</p>
-          <Link 
-            to={`/product/${product.id}`}
-            className="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors group-hover:translate-x-1 duration-300"
-          >
-            Learn more <ArrowRight className="ml-1 h-4 w-4" />
-          </Link>
+          <div className="flex items-center space-x-3">
+            <Button
+              size="sm"
+              variant="outline"
+              className="text-cyan-400 border-cyan-400/30 hover:bg-cyan-400/10"
+              onClick={addToCart}
+            >
+              <ShoppingCart className="h-4 w-4" />
+            </Button>
+            <Link 
+              to={`/product/${product.id}`}
+              className="flex items-center text-cyan-400 hover:text-cyan-300 transition-colors group-hover:translate-x-1 duration-300"
+            >
+              Learn more <ArrowRight className="ml-1 h-4 w-4" />
+            </Link>
+          </div>
         </div>
       </div>
 

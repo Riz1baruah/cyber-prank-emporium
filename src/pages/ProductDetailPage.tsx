@@ -1,20 +1,25 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import CategoryLayout from '@/components/CategoryLayout';
-import { chipsProducts, eyesProducts, legsProducts } from '@/data/productData';
+import { chipsProducts, eyesProducts, legsProducts, featuredProducts } from '@/data/productData';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ShoppingCart } from 'lucide-react';
+import { ArrowLeft, ShoppingCart, Check } from 'lucide-react';
+import { toast } from 'sonner';
 
 const ProductDetailPage: React.FC = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
+  const [added, setAdded] = useState(false);
   
   // Combine all products
   const allProducts = [...chipsProducts, ...eyesProducts, ...legsProducts];
   const product = allProducts.find(p => p.id === productId);
+  
+  // Check featured products if not found in regular products
+  const featuredProduct = !product ? featuredProducts.find(p => p.id === productId) : null;
 
-  if (!product) {
+  if (!product && !featuredProduct) {
     return (
       <CategoryLayout 
         title="Product Not Found"
@@ -34,8 +39,8 @@ const ProductDetailPage: React.FC = () => {
     // Eyes products
     "eagle-eye-3000": "The Eagle Eye 3000 represents the pinnacle of visual enhancement technology. With a revolutionary quantum photonic processor, these optical implants offer unprecedented visual capabilities. See up to 50 miles away with crystal clarity, instantly zoom with thought control, and toggle between 15 different vision modes including infrared, ultraviolet, and electromagnetic spectrum analysis.",
     "night-owl-vision": "Night Owl Vision transforms darkness into your domain. These advanced ocular implants amplify available light by 50,000x, allowing for perfect vision in near-total darkness. Featuring passive heat detection and motion tracking, you'll never miss a detail, no matter the lighting conditions. Military-grade targeting system included.",
-    "xray-spectacles": "X-Ray Spectacles utilize revolutionary quantum tunneling technology to literally see through solid objects. Adjustable penetration depth allows you to examine anything from the contents of a bag to the structural integrity of a building. Medical-grade tissue analysis provides real-time health diagnostics of anyone in your field of vision.",
-    "ar-lenses": "Reality+ AR Lenses seamlessly blend digital information with your natural vision. These premium augmented reality implants project high-definition data overlays directly onto your retina. Access the global network, analyze your environment, and enhance your perceptions—all without a single physical device. Features facial recognition, instant language translation, and emotional analysis.",
+    "xray-spectacles": "X-Ray Oculus utilizes revolutionary quantum tunneling technology to literally see through solid objects. Adjustable penetration depth allows you to examine anything from the contents of a bag to the structural integrity of a building. Medical-grade tissue analysis provides real-time health diagnostics of anyone in your field of vision.",
+    "ar-lenses": "Reality reveals the world as it truly is, not simply as it appears. These advanced neural-optical implants allow you to perceive the underlying patterns and structures of reality itself. See beyond mere physical appearances into the very fabric of existence. Gain insights into the true nature of matter, energy, and consciousness with your mind's eye.",
     
     // Legs products
     "velocity-v3": "Velocity V3 Legs redefine human locomotion with unprecedented speed capabilities. Featuring carbon nanofiber muscles and neural-response kinetic joints, these premium lower-limb replacements allow speeds of up to 120 mph. Advanced shock absorption technology enables 50-foot vertical jumps with perfect landing stability. Includes stealth mode for silent operation.",
@@ -83,6 +88,80 @@ const ProductDetailPage: React.FC = () => {
     ],
   };
 
+  // Handle featured products that have their own format
+  if (featuredProduct) {
+    const addToCart = () => {
+      toast.success(`Added ${featuredProduct.name} to your cart!`, {
+        description: `Your cart will be ready for checkout soon.`
+      });
+      setAdded(true);
+      setTimeout(() => setAdded(false), 2000);
+    };
+
+    return (
+      <CategoryLayout
+        title={featuredProduct.name}
+        description={featuredProduct.description}
+      >
+        <Button 
+          variant="ghost" 
+          onClick={() => navigate(-1)}
+          className="mb-8"
+        >
+          <ArrowLeft className="mr-2 h-4 w-4" /> Back
+        </Button>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-12">
+          <div>
+            <img 
+              src={featuredProduct.image} 
+              alt={featuredProduct.name}
+              className="w-full rounded-xl shadow-2xl shadow-cyan-500/20"
+            />
+          </div>
+          <div>
+            <h1 className="text-4xl font-bold text-white mb-4">{featuredProduct.name}</h1>
+            <p className="text-xl text-cyan-400 mb-6">{featuredProduct.description}</p>
+            <p className="text-gray-400 mb-8">{featuredProduct.detailedDescription}</p>
+            <p className="text-3xl font-bold text-white mb-8">{featuredProduct.price}</p>
+            <Button className="w-full sm:w-auto" onClick={addToCart} disabled={added}>
+              {added ? (
+                <>
+                  <Check className="mr-2 h-4 w-4" /> Added to Cart
+                </>
+              ) : (
+                <>
+                  <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
+                </>
+              )}
+            </Button>
+          </div>
+        </div>
+
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-white mb-6">Specifications</h2>
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {featuredProduct.specifications.map((spec, index) => (
+              <li key={index} className="text-gray-400 flex items-center">
+                <div className="w-2 h-2 bg-cyan-500 rounded-full mr-3"></div>
+                {spec}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </CategoryLayout>
+    );
+  }
+
+  // For regular products
+  const addToCart = () => {
+    toast.success(`Added ${product.name} to your cart!`, {
+      description: `Your cart will be ready for checkout soon.`
+    });
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
+
   return (
     <CategoryLayout
       title={product.name}
@@ -109,8 +188,16 @@ const ProductDetailPage: React.FC = () => {
           <p className="text-xl text-cyan-400 mb-6">{product.tagline}</p>
           <p className="text-gray-400 mb-8">{detailedDescriptions[product.id] || "Revolutionary enhancement technology that pushes the boundaries of human capability."}</p>
           <p className="text-3xl font-bold text-white mb-8">{product.price}</p>
-          <Button className="w-full sm:w-auto">
-            <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
+          <Button className="w-full sm:w-auto" onClick={addToCart} disabled={added}>
+            {added ? (
+              <>
+                <Check className="mr-2 h-4 w-4" /> Added to Cart
+              </>
+            ) : (
+              <>
+                <ShoppingCart className="mr-2 h-4 w-4" /> Add to Cart
+              </>
+            )}
           </Button>
         </div>
       </div>

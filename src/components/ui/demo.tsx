@@ -8,6 +8,13 @@ import { Button } from "@/components/ui/button";
 import { GradientButton } from "@/components/ui/gradient-button";
  
 export function SplineSceneBasic() {
+  const scrollToSection = (id: string) => {
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
   return (
     <Card className="w-full h-[500px] bg-black/[0.96] relative overflow-hidden border-cyan-500/30">
       <Spotlight
@@ -27,10 +34,10 @@ export function SplineSceneBasic() {
             Transform yourself today with Cyborgi™.
           </p>
           <div className="mt-6 flex flex-wrap gap-3">
-            <GradientButton>
+            <GradientButton onClick={() => scrollToSection('enhancement-categories')}>
               Shop Now
             </GradientButton>
-            <GradientButton variant="variant">
+            <GradientButton variant="variant" onClick={() => scrollToSection('transform-your-life')}>
               Learn More
             </GradientButton>
           </div>

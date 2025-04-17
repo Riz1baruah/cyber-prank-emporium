@@ -39,14 +39,6 @@ const Index = () => {
           <div className="w-full">
             <SplineSceneBasic />
           </div>
-          <div className="mt-6 flex flex-wrap gap-3 justify-center">
-            <GradientButton onClick={() => scrollToSection('enhancement-categories')}>
-              Shop Now
-            </GradientButton>
-            <GradientButton variant="variant" onClick={() => scrollToSection('transform-your-life')}>
-              Learn More
-            </GradientButton>
-          </div>
         </div>
       </section>
 
@@ -105,7 +97,7 @@ const Index = () => {
       <FeaturedProducts />
 
       {/* Call To Action */}
-      <section className="py-24 bg-black relative overflow-hidden z-10">
+      <section id="transform-your-life" className="py-24 bg-black relative overflow-hidden z-10">
         <div className="absolute inset-0 bg-gradient-radial from-cyan-500/10 to-transparent opacity-30"></div>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-center">

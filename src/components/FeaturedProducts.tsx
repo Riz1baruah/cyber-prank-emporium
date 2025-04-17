@@ -1,44 +1,20 @@
+
 import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { GradientButton } from "@/components/ui/gradient-button";
-import { Star } from "lucide-react";
+import { Star, ShoppingCart, Check } from "lucide-react";
 import { Link } from "react-router-dom";
-
-const products = [
-  {
-    id: "eyex2000",
-    name: "OmniVision X2000",
-    category: "eyes",
-    price: 12999.99,
-    description: "See beyond human limitations with 200x zoom, night vision, and augmented reality overlays.",
-    image: "/lovable-uploads/856a7cd7-73ff-4b4c-8fcb-d2aa30d9b869.png",
-    rating: 4.9
-  },
-  {
-    id: "leg-rush",
-    name: "Velocity Rush™ Legs",
-    category: "legs",
-    price: 24999.99,
-    description: "Run at speeds up to 100mph with our revolutionary leg replacements.",
-    image: "/lovable-uploads/79db9054-9985-4d71-90e6-8160506fa626.png", 
-    rating: 4.7
-  },
-  {
-    id: "brain-chip",
-    name: "NeuroLink Pro",
-    category: "brain",
-    price: 39999.99,
-    description: "Download skills directly to your brain. Learn piano in 5 minutes!",
-    image: "/lovable-uploads/55420c3c-d5d1-49a1-a6ce-ccdceb24d57d.png", 
-    rating: 5.0
-  }
-];
+import { toast } from "sonner";
+import { featuredProducts } from "@/data/productData";
 
 export default function FeaturedProducts() {
   const [cart, setCart] = useState<string[]>([]);
   
-  const addToCart = (productId: string) => {
+  const addToCart = (productId: string, productName: string) => {
     setCart([...cart, productId]);
+    toast.success(`Added ${productName} to your cart!`, {
+      description: `Your cart will be ready for checkout soon.`
+    });
   };
 
   return (
@@ -50,7 +26,7 @@ export default function FeaturedProducts() {
         </p>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((product) => (
+          {featuredProducts.map((product) => (
             <Card key={product.id} className="bg-gray-800 border-gray-700 overflow-hidden hover:border-cyan-500/50 transition-all duration-300">
               <div className="relative pt-[56.25%] bg-gray-700">
                 <img 
@@ -73,23 +49,24 @@ export default function FeaturedProducts() {
                   </div>
                 </div>
                 <CardDescription className="text-gray-400">
-                  {product.category === 'eyes' ? 'Robotic Eyes' : 
-                   product.category === 'legs' ? 'Speedster Legs' : 'Brain Chips'}
+                  {product.category === 'Eyes' ? 'Robotic Eyes' : 
+                   product.category === 'Legs' ? 'Speedster Legs' : 'Brain Chips'}
                 </CardDescription>
               </CardHeader>
               
               <CardContent>
                 <p className="text-gray-300">{product.description}</p>
                 <p className="text-2xl font-bold text-cyan-400 mt-4">
-                  ${product.price.toLocaleString()}
+                  {product.price}
                 </p>
               </CardContent>
               
               <CardFooter className="border-t border-gray-700 pt-4">
                 <GradientButton 
                   className="w-full"
-                  onClick={() => addToCart(product.id)}
+                  onClick={() => addToCart(product.id, product.name)}
                 >
+                  <ShoppingCart className="mr-2 h-4 w-4" />
                   Add to Cart
                 </GradientButton>
               </CardFooter>
