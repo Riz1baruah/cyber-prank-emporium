@@ -4,6 +4,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface BeamPath {
   path: string;
@@ -50,6 +51,7 @@ interface PulseBeamsProps {
     middle: string;
     end: string;
   };
+  mobileHeight?: string;
 }
 
 export const PulseBeams = ({
@@ -62,13 +64,18 @@ export const PulseBeams = ({
   baseColor = "var(--slate-800)",
   accentColor = "var(--slate-600)",
   gradientColors,
+  mobileHeight = "auto",
 }: PulseBeamsProps) => {
+  const isMobile = useIsMobile();
+
   return (
     <div
       className={cn(
-        "w-full h-screen relative flex items-center justify-center antialiased overflow-hidden",
+        "w-full relative flex items-center justify-center antialiased overflow-hidden",
+        isMobile ? `h-${mobileHeight}` : "h-screen",
         className
       )}
+      style={isMobile ? { height: mobileHeight } : {}}
     >
       {background}
       <div className="relative z-10">{children}</div>

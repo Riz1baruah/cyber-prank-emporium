@@ -10,6 +10,8 @@ import { GradientButton } from "@/components/ui/gradient-button";
 import { ArrowRight, Cpu, Eye, Zap, Brain } from "lucide-react";
 import { Link } from "react-router-dom";
 import { DemoBackgroundPaths } from "@/components/ui/background-paths";
+import { useIsMobile } from "@/hooks/use-mobile";
+import { PulseBeams } from "@/components/ui/pulse-beams";
 
 const Index = () => {
   const scrollToSection = (id: string) => {
@@ -18,6 +20,110 @@ const Index = () => {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+  
+  const isMobile = useIsMobile();
+
+  // Custom beams configuration for each enhancement category
+  const eyesBeams = [
+    {
+      path: "M50 50H150C155.523 50 160 54.477 160 60V150",
+      gradientConfig: {
+        initial: { x1: "0%", x2: "0%", y1: "80%", y2: "100%" },
+        animate: {
+          x1: ["0%", "0%", "100%"],
+          x2: ["0%", "0%", "90%"],
+          y1: ["80%", "0%", "0%"],
+          y2: ["100%", "20%", "20%"],
+        },
+        transition: {
+          duration: 2,
+          repeat: Infinity,
+          repeatType: "loop",
+          ease: "linear",
+          delay: 0.2,
+        },
+      },
+      connectionPoints: [
+        { cx: 50, cy: 50, r: 4 },
+        { cx: 160, cy: 150, r: 4 }
+      ]
+    }
+  ];
+
+  const legsBeams = [
+    {
+      path: "M160 50H60C54.477 50 50 54.477 50 60V150",
+      gradientConfig: {
+        initial: { x1: "0%", x2: "0%", y1: "80%", y2: "100%" },
+        animate: {
+          x1: ["100%", "0%", "0%"],
+          x2: ["90%", "0%", "0%"],
+          y1: ["0%", "0%", "80%"],
+          y2: ["20%", "20%", "100%"],
+        },
+        transition: {
+          duration: 2,
+          repeat: Infinity,
+          repeatType: "loop",
+          ease: "linear",
+          delay: 0.5,
+        },
+      },
+      connectionPoints: [
+        { cx: 160, cy: 50, r: 4 },
+        { cx: 50, cy: 150, r: 4 }
+      ]
+    }
+  ];
+
+  const brainBeams = [
+    {
+      path: "M50 75H160",
+      gradientConfig: {
+        initial: { x1: "0%", x2: "0%", y1: "0%", y2: "0%" },
+        animate: {
+          x1: ["0%", "100%", "0%"],
+          x2: ["0%", "90%", "0%"],
+          y1: ["0%", "0%", "0%"],
+          y2: ["0%", "0%", "0%"],
+        },
+        transition: {
+          duration: 2,
+          repeat: Infinity,
+          repeatType: "loop",
+          ease: "linear",
+          delay: 0.8,
+        },
+      },
+      connectionPoints: [
+        { cx: 50, cy: 75, r: 4 },
+        { cx: 160, cy: 75, r: 4 }
+      ]
+    },
+    {
+      path: "M105 20V130",
+      gradientConfig: {
+        initial: { x1: "0%", x2: "0%", y1: "0%", y2: "0%" },
+        animate: {
+          x1: ["0%", "0%", "0%"],
+          x2: ["0%", "0%", "0%"],
+          y1: ["0%", "100%", "0%"],
+          y2: ["0%", "90%", "0%"],
+        },
+        transition: {
+          duration: 2,
+          repeat: Infinity,
+          repeatType: "loop",
+          ease: "linear",
+          delay: 1,
+        },
+      },
+      connectionPoints: [
+        { cx: 105, cy: 20, r: 4 },
+        { cx: 105, cy: 130, r: 4 }
+      ]
+    }
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-black to-gray-900">
@@ -54,40 +160,91 @@ const Index = () => {
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-white">Enhancement Categories</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="group relative overflow-hidden rounded-lg bg-gradient-to-br from-gray-900 to-gray-800 p-8 border border-gray-800 hover:border-cyan-500/50 transition-colors duration-300">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-blue-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-              <Eye className="h-12 w-12 text-cyan-400 mb-6" />
-              <h3 className="text-2xl font-bold text-white mb-3">Robotic Eyes</h3>
-              <p className="text-gray-400 mb-6">Enhance your vision beyond human limits with our cutting-edge optical implants.</p>
-              <Link to="/categories/eyes">
-                <Button variant="ghost" className="group-hover:text-cyan-400 transition-colors p-0">
-                  Browse Eyes <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+            {/* Robotic Eyes */}
+            <div className="group relative overflow-hidden rounded-lg bg-gray-900">
+              <PulseBeams
+                beams={eyesBeams}
+                width={210}
+                height={200}
+                baseColor="rgba(8, 145, 178, 0.3)"
+                accentColor="rgba(8, 145, 178, 0.6)"
+                gradientColors={{
+                  start: "#0891B2",
+                  middle: "#06B6D4",
+                  end: "#0E7490"
+                }}
+                mobileHeight={isMobile ? "300px" : "auto"}
+                className="h-full w-full"
+              >
+                <div className="p-8 w-full">
+                  <Eye className="h-12 w-12 text-cyan-400 mb-6" />
+                  <h3 className="text-2xl font-bold text-white mb-3">Robotic Eyes</h3>
+                  <p className="text-gray-400 mb-6">Enhance your vision beyond human limits with our cutting-edge optical implants.</p>
+                  <Link to="/categories/eyes">
+                    <Button variant="ghost" className="group-hover:text-cyan-400 transition-colors p-0">
+                      Browse Eyes <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </div>
+              </PulseBeams>
             </div>
             
-            <div className="group relative overflow-hidden rounded-lg bg-gradient-to-br from-gray-900 to-gray-800 p-8 border border-gray-800 hover:border-cyan-500/50 transition-colors duration-300">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-blue-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-              <Zap className="h-12 w-12 text-cyan-400 mb-6" />
-              <h3 className="text-2xl font-bold text-white mb-3">Speedster Legs</h3>
-              <p className="text-gray-400 mb-6">Run faster, jump higher, and never tire with our revolutionary leg replacements.</p>
-              <Link to="/categories/legs">
-                <Button variant="ghost" className="group-hover:text-cyan-400 transition-colors p-0">
-                  Browse Legs <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+            {/* Speedster Legs */}
+            <div className="group relative overflow-hidden rounded-lg bg-gray-900">
+              <PulseBeams
+                beams={legsBeams}
+                width={210}
+                height={200}
+                baseColor="rgba(8, 145, 178, 0.3)"
+                accentColor="rgba(8, 145, 178, 0.6)"
+                gradientColors={{
+                  start: "#0891B2",
+                  middle: "#06B6D4",
+                  end: "#0E7490"
+                }}
+                mobileHeight={isMobile ? "300px" : "auto"}
+                className="h-full w-full"
+              >
+                <div className="p-8 w-full">
+                  <Zap className="h-12 w-12 text-cyan-400 mb-6" />
+                  <h3 className="text-2xl font-bold text-white mb-3">Speedster Legs</h3>
+                  <p className="text-gray-400 mb-6">Run faster, jump higher, and never tire with our revolutionary leg replacements.</p>
+                  <Link to="/categories/legs">
+                    <Button variant="ghost" className="group-hover:text-cyan-400 transition-colors p-0">
+                      Browse Legs <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </div>
+              </PulseBeams>
             </div>
             
-            <div className="group relative overflow-hidden rounded-lg bg-gradient-to-br from-gray-900 to-gray-800 p-8 border border-gray-800 hover:border-cyan-500/50 transition-colors duration-300">
-              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-400 to-blue-500 transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"></div>
-              <Brain className="h-12 w-12 text-cyan-400 mb-6" />
-              <h3 className="text-2xl font-bold text-white mb-3">Brain Chips</h3>
-              <p className="text-gray-400 mb-6">Download skills, boost intelligence, and interface with machines using our neural implants.</p>
-              <Link to="/categories/brain">
-                <Button variant="ghost" className="group-hover:text-cyan-400 transition-colors p-0">
-                  Browse Brain Chips <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+            {/* Brain Chips */}
+            <div className="group relative overflow-hidden rounded-lg bg-gray-900">
+              <PulseBeams
+                beams={brainBeams}
+                width={210}
+                height={200}
+                baseColor="rgba(8, 145, 178, 0.3)"
+                accentColor="rgba(8, 145, 178, 0.6)"
+                gradientColors={{
+                  start: "#0891B2",
+                  middle: "#06B6D4",
+                  end: "#0E7490"
+                }}
+                mobileHeight={isMobile ? "300px" : "auto"}
+                className="h-full w-full"
+              >
+                <div className="p-8 w-full">
+                  <Brain className="h-12 w-12 text-cyan-400 mb-6" />
+                  <h3 className="text-2xl font-bold text-white mb-3">Brain Chips</h3>
+                  <p className="text-gray-400 mb-6">Download skills, boost intelligence, and interface with machines using our neural implants.</p>
+                  <Link to="/categories/brain">
+                    <Button variant="ghost" className="group-hover:text-cyan-400 transition-colors p-0">
+                      Browse Brain Chips <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </Link>
+                </div>
+              </PulseBeams>
             </div>
           </div>
         </div>
