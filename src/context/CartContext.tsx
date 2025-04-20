@@ -1,6 +1,10 @@
 
 import React, { createContext, useState, useContext, ReactNode } from 'react';
 import { toast } from "sonner";
+import { motion, AnimatePresence } from "framer-motion";
+import { ShoppingCart, X, Plus, Minus, CreditCard } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { cn } from "@/lib/utils";
 
 export type CartItem = {
   id: string;
@@ -14,8 +18,10 @@ type CartContextType = {
   cartItems: CartItem[];
   addToCart: (product: { id: string; name: string; price: string; imageUrl?: string; image?: string }) => void;
   removeFromCart: (id: string) => void;
+  updateQuantity: (id: string, delta: number) => void;
   clearCart: () => void;
   getCartCount: () => number;
+  getTotalPrice: () => number;
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
@@ -46,6 +52,18 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     setCartItems(prevItems => prevItems.filter(item => item.id !== id));
   };
 
+  const updateQuantity = (id: string, delta: number) => {
+    setCartItems(prevItems =>
+      prevItems.map(item => {
+        if (item.id === id) {
+          const newQuantity = item.quantity + delta;
+          return newQuantity > 0 ? { ...item, quantity: newQuantity } : item;
+        }
+        return item;
+      }).filter(item => item.quantity > 0)
+    );
+  };
+
   const clearCart = () => {
     setCartItems([]);
   };
@@ -54,8 +72,23 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
   };
 
+  const getTotalPrice = () => {
+    return cartItems.reduce((total, item) => {
+      const price = parseFloat(item.price.replace(/[^0-9.-]+/g, ''));
+      return total + (price * item.quantity);
+    }, 0);
+  };
+
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, getCartCount }}>
+    <CartContext.Provider value={{ 
+      cartItems, 
+      addToCart, 
+      removeFromCart, 
+      updateQuantity,
+      clearCart, 
+      getCartCount,
+      getTotalPrice 
+    }}>
       {children}
     </CartContext.Provider>
   );

@@ -6,35 +6,19 @@ import {
   DropdownMenuContent,
   DropdownMenuTrigger,
   DropdownMenuLabel,
-  DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
-import { useNavigate } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
+import { Plus, Minus, X } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 export default function CartIcon() {
-  const { cartItems, getCartCount, removeFromCart } = useCart();
-  const navigate = useNavigate();
+  const { cartItems, getCartCount, removeFromCart, updateQuantity, getTotalPrice } = useCart();
   
   const totalItems = getCartCount();
-  
-  const formatPrice = (price: string) => {
-    return price;
-  };
-  
-  const calculateTotal = () => {
-    try {
-      // This is simplified as we're using string prices with $ formatting
-      return cartItems.reduce((total, item) => {
-        // Extract numeric part from price string
-        const priceValue = parseFloat(item.price.replace(/[^0-9.]/g, '')) * item.quantity;
-        return total + priceValue;
-      }, 0).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-    } catch (e) {
-      return "$0.00";
-    }
-  };
+  const totalPrice = getTotalPrice();
 
   return (
     <DropdownMenu>
@@ -42,9 +26,13 @@ export default function CartIcon() {
         <Button variant="ghost" size="icon" className="relative">
           <ShoppingCart className="h-5 w-5 text-gray-300 hover:text-cyan-400 transition-colors" />
           {totalItems > 0 && (
-            <span className="absolute -top-1 -right-1 bg-cyan-500 text-black text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold">
+            <motion.span 
+              initial={{ scale: 0 }} 
+              animate={{ scale: 1 }} 
+              className="absolute -top-1 -right-1 bg-cyan-500 text-black text-xs w-5 h-5 rounded-full flex items-center justify-center font-bold"
+            >
               {totalItems}
-            </span>
+            </motion.span>
           )}
         </Button>
       </DropdownMenuTrigger>
@@ -58,10 +46,22 @@ export default function CartIcon() {
           </div>
         ) : (
           <>
-            <ScrollArea className="h-[300px]">
-              {cartItems.map((item) => (
-                <DropdownMenuItem key={item.id} className="p-3 focus:bg-gray-800">
-                  <div className="flex w-full space-x-3">
+            <ScrollArea className="h-[300px] px-4">
+              <AnimatePresence initial={false}>
+                {cartItems.map((item) => (
+                  <motion.div
+                    key={item.id}
+                    layout
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.95 }}
+                    transition={{ duration: 0.2 }}
+                    className={cn(
+                      "flex items-center gap-3 p-3 my-2",
+                      "bg-gray-800/50 rounded-lg",
+                      "border border-gray-700"
+                    )}
+                  >
                     <div className="w-14 h-14 rounded overflow-hidden flex-shrink-0">
                       <img 
                         src={item.imageUrl} 
@@ -72,34 +72,43 @@ export default function CartIcon() {
                     <div className="flex-grow">
                       <h4 className="text-white font-medium">{item.name}</h4>
                       <div className="flex justify-between items-center mt-1">
-                        <span className="text-cyan-400">{formatPrice(item.price)}</span>
-                        <span className="text-gray-400">Qty: {item.quantity}</span>
+                        <div className="flex items-center space-x-2">
+                          <button
+                            onClick={() => updateQuantity(item.id, -1)}
+                            className="p-1 rounded-md hover:bg-gray-700 text-gray-400 hover:text-cyan-400"
+                          >
+                            <Minus className="h-3 w-3" />
+                          </button>
+                          <span className="text-gray-400">{item.quantity}</span>
+                          <button
+                            onClick={() => updateQuantity(item.id, 1)}
+                            className="p-1 rounded-md hover:bg-gray-700 text-gray-400 hover:text-cyan-400"
+                          >
+                            <Plus className="h-3 w-3" />
+                          </button>
+                        </div>
+                        <span className="text-cyan-400">{item.price}</span>
                       </div>
                     </div>
                     <button 
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        removeFromCart(item.id);
-                      }}
-                      className="text-gray-400 hover:text-red-400"
+                      onClick={() => removeFromCart(item.id)}
+                      className="text-gray-400 hover:text-red-400 p-1"
                     >
-                      ✕
+                      <X className="h-4 w-4" />
                     </button>
-                  </div>
-                </DropdownMenuItem>
-              ))}
+                  </motion.div>
+                ))}
+              </AnimatePresence>
             </ScrollArea>
-            <div className="p-3 bg-gray-800">
-              <div className="flex justify-between mb-3">
+            <div className="p-4 bg-gray-800/50 mt-2">
+              <div className="flex justify-between mb-4">
                 <span className="text-gray-300">Total:</span>
-                <span className="text-white font-bold">{calculateTotal()}</span>
+                <span className="text-white font-bold">
+                  ${totalPrice.toFixed(2)}
+                </span>
               </div>
               <Button 
-                className="w-full bg-cyan-500 hover:bg-cyan-600 text-black"
-                onClick={() => {
-                  // For now, we'll just close the dropdown
-                  // In a real app, this would navigate to checkout
-                }}
+                className="w-full bg-cyan-500 hover:bg-cyan-600 text-black gap-2"
               >
                 Checkout
               </Button>

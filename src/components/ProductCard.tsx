@@ -1,9 +1,10 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight, ShoppingCart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/CartContext';
+import { motion } from 'framer-motion';
 
 export type Product = {
   id: string;
@@ -20,25 +21,30 @@ interface ProductCardProps {
 
 const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const { addToCart } = useCart();
+  const [isAdding, setIsAdding] = useState(false);
 
   const handleAddToCart = () => {
     addToCart(product);
+    setIsAdding(true);
+    setTimeout(() => setIsAdding(false), 1000);
   };
 
   return (
-    <div className="group relative rounded-2xl bg-gray-800/50 border border-gray-700/50 overflow-hidden transition-all duration-300 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(10,255,255,0.15)] hover:scale-[1.02]">
-      {/* Image Container */}
+    <motion.div 
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+      className="group relative rounded-2xl bg-gray-800/50 border border-gray-700/50 overflow-hidden transition-all duration-300 hover:border-cyan-500/50 hover:shadow-[0_0_30px_rgba(10,255,255,0.15)] hover:scale-[1.02]"
+    >
       <div className="relative aspect-[16/9] overflow-hidden bg-gray-900">
         <img 
           src={product.imageUrl} 
           alt={product.name}
           className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
-        {/* Subtle overlay gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-60"></div>
       </div>
       
-      {/* Content */}
       <div className="p-6">
         <div className="mb-6">
           <h3 className="text-2xl font-medium text-white mb-2">{product.name}</h3>
@@ -49,12 +55,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           <p className="text-xl font-bold text-white">{product.price}</p>
           <div className="flex items-center space-x-3">
             <Button
-              size="sm"
+              size="default"
               variant="outline"
               className="text-cyan-400 border-cyan-400/30 hover:bg-cyan-400/10"
               onClick={handleAddToCart}
+              disabled={isAdding}
             >
-              <ShoppingCart className="h-4 w-4" />
+              {isAdding ? (
+                'Added!'
+              ) : (
+                <>
+                  <ShoppingCart className="mr-2 h-4 w-4" />
+                  Add to Cart
+                </>
+              )}
             </Button>
             <Link 
               to={`/product/${product.id}`}
@@ -65,10 +79,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           </div>
         </div>
       </div>
-
-      {/* Decorative elements */}
-      <div className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent transform origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-700"></div>
-    </div>
+    </motion.div>
   );
 };
 
