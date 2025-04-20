@@ -1,26 +1,27 @@
-import React, { useEffect, useState } from "react"
-import { motion } from "framer-motion"
-import { Link, useLocation } from "react-router-dom"
-import { LucideIcon, Bot } from "lucide-react"
-import { cn } from "@/lib/utils"
+
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
+import { LucideIcon, Bot, User, Menu } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
-import { ShoppingCart, User, Menu } from "lucide-react";
+import CartIcon from "@/components/CartIcon";
 
 interface NavItem {
-  name: string
-  url: string
-  icon: LucideIcon
+  name: string;
+  url: string;
+  icon: LucideIcon;
 }
 
 interface NavBarProps {
-  items: NavItem[]
-  className?: string
+  items: NavItem[];
+  className?: string;
 }
 
 export function NavBar({ items, className }: NavBarProps) {
   const location = useLocation();
-  const [activeTab, setActiveTab] = useState(items[0].name)
-  const [isMobile, setIsMobile] = useState(false)
+  const [activeTab, setActiveTab] = useState(items[0].name);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     // Update active tab based on current route
@@ -32,23 +33,25 @@ export function NavBar({ items, className }: NavBarProps) {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768)
-    }
+      setIsMobile(window.innerWidth < 768);
+    };
 
-    handleResize()
-    window.addEventListener("resize", handleResize)
-    return () => window.removeEventListener("resize", handleResize)
-  }, [])
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-md border-b border-cyan-500/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Navigation Links */}
-          <div className={cn(
-            "flex items-center gap-3 bg-background/5 border border-border/5 backdrop-blur-lg py-1 px-1 rounded-full shadow-lg",
-            className,
-          )}>
+          <div
+            className={cn(
+              "flex items-center gap-3 bg-background/5 border border-border/5 backdrop-blur-lg py-1 px-1 rounded-full shadow-lg",
+              className
+            )}
+          >
             {items.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.name;
@@ -61,7 +64,7 @@ export function NavBar({ items, className }: NavBarProps) {
                   className={cn(
                     "relative cursor-pointer text-sm font-semibold px-6 py-2 rounded-full transition-colors",
                     "text-gray-300 hover:text-cyan-400",
-                    isActive && "text-cyan-400",
+                    isActive && "text-cyan-400"
                   )}
                 >
                   <span className="hidden md:inline">{item.name}</span>
@@ -93,11 +96,7 @@ export function NavBar({ items, className }: NavBarProps) {
 
           {/* Actions */}
           <div className="flex items-center space-x-4">
-            <Link to="/cart">
-              <Button variant="ghost" size="icon" className="text-gray-300 hover:text-cyan-400">
-                <ShoppingCart className="h-5 w-5" />
-              </Button>
-            </Link>
+            <CartIcon />
             <Link to="/account">
               <Button variant="ghost" size="icon" className="text-gray-300 hover:text-cyan-400">
                 <User className="h-5 w-5" />
